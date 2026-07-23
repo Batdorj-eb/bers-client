@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #0c1222;
+  --ink-soft: #2a3348;
+  --muted: #5c6b82;
+  --line: #d2dce8;
+  --surface: #f7f9fc;
+  --paper: #e4ebf3;
+  --paper-deep: #d5dee9;
+  --accent: #c8102e;
+  --accent-soft: #fce8eb;
+  --accent-deep: #9e0c24;
+  --glow: rgba(200, 16, 46, 0.12);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-deep: var(--accent-deep);
+  --font-display: var(--font-source-serif), Georgia, serif;
+  --font-body: var(--font-manrope), system-ui, sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 80% 50% at 12% -8%, rgba(200, 16, 46, 0.06), transparent 52%),
+    radial-gradient(ellipse 65% 40% at 95% 5%, rgba(70, 110, 150, 0.12), transparent 48%),
+    radial-gradient(ellipse 50% 35% at 50% 100%, rgba(120, 145, 170, 0.1), transparent 55%),
+    linear-gradient(165deg, #e8eef5 0%, #dfe7f0 45%, #d8e2ec 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes image-reveal {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease both;
+}
+
+.animate-image-reveal {
+  animation: image-reveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.delay-1 {
+  animation-delay: 0.08s;
+}
+
+.delay-2 {
+  animation-delay: 0.16s;
+}
+
+.delay-3 {
+  animation-delay: 0.24s;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.prose-news p {
+  margin-top: 1.25rem;
+}
