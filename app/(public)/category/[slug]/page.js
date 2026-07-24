@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
 import NewsCard from "@/components/NewsCard";
 import PageShell from "@/components/PageShell";
-import {
-  categories,
-  getCategoryBySlug,
-  getNewsByCategory,
-} from "@/lib/newsData";
+import { categories, getCategoryBySlug } from "@/lib/newsData";
+import { getNewsList } from "@/lib/api";
+
+export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return categories.map((cat) => ({ slug: cat.slug }));
@@ -17,7 +16,7 @@ export async function generateMetadata({ params }) {
   if (!category) return { title: "Ангилал олдсонгүй" };
   return {
     title: `${category.name} | BERS.mn`,
-    description: `${category.name} ангиллын мэдээ`,
+    description: category.description || `${category.name} ангиллын мэдээ`,
   };
 }
 
@@ -29,18 +28,28 @@ export default async function CategoryPage({ params }) {
     notFound();
   }
 
-  const items = getNewsByCategory(category.name);
+  let items = [];
+  try {
+    items = (await getNewsList({ category: category.slug })) || [];
+  } catch (err) {
+    console.error("Failed to load category news:", err.message);
+  }
 
   return (
     <PageShell showMidAd>
-      <header className="mb-8 animate-fade-up">
+      <header className="mb-8 animate-fade-up border-b border-line/70 pb-6">
         <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-          Ангилал
+          {category.english || "Ангилал"}
         </p>
         <h1 className="mt-2 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
           {category.name}
         </h1>
-        <p className="mt-2 text-sm text-muted">{items.length} мэдээ олдлоо</p>
+        {category.description && (
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-ink-soft sm:text-lg">
+            {category.description}
+          </p>
+        )}
+        <p className="mt-3 text-sm text-muted">{items.length} мэдээ олдлоо</p>
       </header>
 
       {items.length === 0 ? (

@@ -14,8 +14,7 @@ export default function Footer() {
             </span>
           </Link>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-white/60">
-            Өдөр тутмын мэдээллийн эх сурвалж. Энэ бол сургалтын зорилготой
-            жишиг төсөл юм.
+            АНУ дахь Монголчуудад зориулсан мэдээллийн эх сурвалж.
           </p>
         </div>
 

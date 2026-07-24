@@ -31,7 +31,8 @@ export default function Nav() {
             <Link
               key={cat.slug}
               href={href}
-              className={linkClass(pathname === href)}
+              className={linkClass(pathname === href || pathname?.startsWith(`${href}/`))}
+              title={cat.description}
             >
               {cat.name}
             </Link>

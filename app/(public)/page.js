@@ -2,10 +2,32 @@ import Link from "next/link";
 import NewsCard from "@/components/NewsCard";
 import PageShell from "@/components/PageShell";
 import AdSlot from "@/components/AdSlot";
-import { newsList } from "@/lib/newsData";
-import { ads } from "@/lib/adsData";
+import { getAds, getNewsList } from "@/lib/api";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  let newsList = [];
+  let ads = {};
+  try {
+    [newsList, ads] = await Promise.all([
+      getNewsList().then((d) => d || []),
+      getAds().then((d) => d || {}).catch(() => ({})),
+    ]);
+  } catch (err) {
+    console.error("Failed to load news:", err.message);
+  }
+
+  if (newsList.length === 0) {
+    return (
+      <PageShell>
+        <p className="border border-line bg-surface/70 px-6 py-12 text-center text-muted">
+          Мэдээ олдсонгүй. Backend ажиллаж байгаа эсэхийг шалгана уу.
+        </p>
+      </PageShell>
+    );
+  }
+
   const [featured, ...rest] = newsList;
 
   return (

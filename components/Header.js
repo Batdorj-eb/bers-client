@@ -40,7 +40,7 @@ export default function Header() {
           />
         </Link>
         <p className="mt-2 max-w-md animate-fade-up delay-1 text-sm text-muted sm:text-[15px]">
-          Өдөр тутмын мэдээллийн эх сурвалж
+          АНУ дахь Монголчуудад зориулсан мэдээллийн эх сурвалж
         </p>
       </div>
 

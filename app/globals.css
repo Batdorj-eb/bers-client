@@ -118,3 +118,10 @@ body {
 .prose-news p {
   margin-top: 1.25rem;
 }
+
+.news-lead,
+.news-body {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}

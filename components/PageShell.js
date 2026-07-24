@@ -1,8 +1,19 @@
 import AdSlot from "@/components/AdSlot";
 import Sidebar from "@/components/Sidebar";
-import { ads } from "@/lib/adsData";
+import { getAds } from "@/lib/api";
 
-export default function PageShell({ children, showMidAd = false, showTopAd = true }) {
+export default async function PageShell({
+  children,
+  showMidAd = false,
+  showTopAd = true,
+}) {
+  let ads = {};
+  try {
+    ads = (await getAds()) || {};
+  } catch {
+    ads = {};
+  }
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:py-10">
       {showTopAd && (
@@ -16,7 +27,7 @@ export default function PageShell({ children, showMidAd = false, showTopAd = tru
             <AdSlot ad={ads.midContent} size="banner" className="mt-8" />
           )}
         </div>
-        <Sidebar />
+        <Sidebar ads={ads} />
       </div>
     </div>
   );
